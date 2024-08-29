@@ -107,4 +107,44 @@ class AdminController extends Controller
         $galleries = Gallery::all();
         return view('admin.gallery', compact('galleries'));
     }
+
+    public function galleryCreate()
+    {
+        return view('admin.gallery-create');
+    }
+
+    public function galleryStore(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:jpeg,png,jpg,gif,svg,mp4,avi,mkv,webm|max:50000',
+        ]);
+        // Mengganti logika untuk menentukan jenis file
+        $mimeType = $request->file('file')->getClientMimeType();
+        if (strpos($mimeType, 'image/') === 0) {
+            $jenis = 'image';
+        } elseif (strpos($mimeType, 'video/') === 0) {
+            $jenis = 'video';
+        } else {
+            // Tangani kasus jika bukan gambar atau video
+            return redirect()->back()->withErrors(['file' => 'File harus berupa gambar atau video.']);
+        }
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('gallery', $fileName, 'public');
+        }
+
+        $gallery = new Gallery();
+        $gallery->file = $fileName;
+        $gallery->type = $jenis;
+        $gallery->save();
+        return redirect()->route('admin.gallery');
+    }
+    public function galleryDestroy($id)
+    {
+        $gallery = Gallery::find($id);
+        $gallery->delete();
+        return redirect()->route('admin.gallery');
+    }
+
 }

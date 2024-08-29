@@ -33,4 +33,7 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
 
     // Gallery
     Route::get('/admin/gallery', [AdminController::class, 'gallery'])->name('admin.gallery');
+    Route::get('/admin/gallery/create', [AdminController::class, 'galleryCreate'])->name('admin.gallery.create');
+    Route::post('/admin/gallery/store', [AdminController::class, 'galleryStore'])->name('admin.gallery.store');
+    Route::get('/admin/gallery/destroy/{id}', [AdminController::class, 'galleryDestroy'])->name('admin.gallery.destroy');
 });

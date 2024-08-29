@@ -5,10 +5,10 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <h3>Destination</h3>
-                <a href="{{ route('admin.destination.create') }}" class="btn btn-primary">Create</a>
+                <h3>Gallery</h3>
+                <a href="{{ route('admin.gallery.create') }}" class="btn btn-primary">Create</a>
                 <div class="table-responsive">
-                    <table class="table table-borderless">
+                    <table class="table table-borderless" id="table">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -19,15 +19,18 @@
                         </thead>
                         <tbody>
                             @foreach ($galleries as $gallery)
-                                <tr class="align-middle" style="">
+                                <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
-                                        <img src="{{ asset('storage/destination/' . $destination->image) }}" alt="" style="object-fit: cover; max-width: 150px; height: 100px;">
+                                        @if ($gallery->type == 'image')
+                                            <img src="{{ asset('storage/gallery/' . $gallery->file) }}" alt="" style="object-fit: cover; max-width: 150px; height: 100px;">
+                                        @else
+                                            <video src="{{ asset('storage/gallery/' . $gallery->file) }}" alt="" style="object-fit: cover; max-width: 150px; height: 100px;" controls></video>
+                                        @endif
                                     </td>
-                                    <td>{{ $destination->name }}</td>
+                                    <td>{{ $gallery->type }}</td>
                                     <td>
-                                        <a href="{{ route('admin.destination.edit', $destination->id) }}" class="btn btn-primary">Edit</a>
-                                        <a href="{{ route('admin.destination.destroy', $destination->id) }}" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('admin.gallery.destroy', $gallery->id) }}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
