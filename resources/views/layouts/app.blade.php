@@ -91,6 +91,14 @@
                             <a href="{{ route('admin.gallery') }}" class="active"><i
                                     class="material-icons-two-tone">photo_library</i>Gallery</a>
                         </li>
+                        <li class="@yield('active_news')">
+                            <a href="{{ route('admin.news') }}" class="active"><i
+                                    class="material-icons-two-tone">library_books</i>News & Article</a>
+                        </li>
+                        <li class="@yield('active_product')">
+                            <a href="{{ route('admin.product') }}" class="active"><i
+                                    class="material-icons-two-tone">inventory_2</i>Product</a>
+                        </li>
                     @endif
 
 

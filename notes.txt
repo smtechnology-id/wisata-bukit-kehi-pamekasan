@@ -1,0 +1,57 @@
+Beranda / Home (Statis) (Vidio / foto Statis)
+About Us (Profiling) (Statis)
+Sejarah (Statis)
+Contact Us
+
+Destinasi (Dinamis) 
+Artikel / Pengumuman (Dinamis) (Komentar + rating)
+Gallery (Foto / Vidio)(Dinamis)
+Product (Dinamis)
+
+
+Fasitilas (Title, Photo, Short Description)
+Aparatur / Pejabar (Name, Photo, jabatan)
+
+Fitur Tambahan
+-> Display Data Pengunjung (Grafik)
+	-> Admin Isi Form (Create) -> Nama Pendapatan / Title -> Target ->
+	-> Pendapatan -> bulan -> tahun 
+	-> table Statistik Pendapatan
+		-> id
+		-> title 
+		-> Target (int)
+		-> Actual (int)
+		-> Bulan
+		-> tahun
+		
+	-> Admin Isi form Statistik Pengunjung -> Bulan -> Tahun -> jumlah 
+		laki-laki -> jumlah Perempuan -> belum mengisi -> Total
+	-> Table Statistik  
+		-> id
+		-> Bulan
+		-> tahun
+		-> laki-laki
+		-> perempuan
+		-> belum mengisi
+		
+Home 	About us 	Destinasi 	galery		Product 	Artikel  	contact us
+	-> sejarah
+	-> statistik
+
+1.150.000 (150.000)
+
+1.000.000 (8 Fitur) 150.000 
+
+4 x 150.000 = 600.000 + 1.000.000 + 150.000 - 300.000
+
+1.500.000 x 2 = 3.000.000
+
+
+Dipersiapkan
+
+XAMPP (php 8.2)
+Visual Studio (Cursor AI)
+Composer 
+Github + Gitbash
+
+
