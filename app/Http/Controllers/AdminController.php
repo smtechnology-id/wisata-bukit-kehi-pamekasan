@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Destination;
-use App\Models\Gallery;
 use App\Models\News;
+use App\Models\Gallery;
 use App\Models\Product;
+use App\Models\Aparatur;
+use App\Models\Facility;
+use App\Models\Destination;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -315,4 +317,133 @@ class AdminController extends Controller
         $product->delete();
         return redirect()->route('admin.product')->with('success', 'Product deleted successfully');
     }
+
+    // Facility
+    public function facility()
+    {
+        $facilities = Facility::latest()->get();
+        return view('admin.facility', compact('facilities'));
+    }
+    public function facilityCreate()
+    {
+        return view('admin.facility-create');
+    }
+    public function facilityStore(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+        $facility = new Facility();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('facility', $imageName, 'public');
+            $facility->image = $imageName;
+        }
+        $facility->name = $request->name;
+        $facility->description = $request->description;
+        $facility->save();
+        return redirect()->route('admin.facility')->with('success', 'Facility created successfully');
+    }
+
+    public function facilityEdit($id)
+    {
+        $facility = Facility::find($id);
+        return view('admin.facility-edit', compact('facility'));
+    }
+    public function facilityUpdate(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+        $facility = Facility::find($request->id);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('facility', $imageName, 'public');
+            $facility->image = $imageName;
+        }
+        $facility->name = $request->name;
+        $facility->description = $request->description;
+        $facility->save();
+        return redirect()->route('admin.facility')->with('success', 'Facility updated successfully');
+    }
+    public function facilityDestroy($id)
+    {
+        $facility = Facility::find($id);
+        $facility->delete();
+        return redirect()->route('admin.facility')->with('success', 'Facility deleted successfully');
+    }
+
+    // Aparatur
+    public function aparatur()
+    {
+        $aparaturs = Aparatur::latest()->get();
+        return view('admin.aparatur', compact('aparaturs'));
+    }
+    public function aparaturCreate()
+    {
+        return view('admin.aparatur-create');
+    }
+    public function aparaturStore(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'position' => 'required',
+        ]);
+        $aparatur = new Aparatur();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('aparatur', $imageName, 'public');
+            $aparatur->image = $imageName;
+        }
+        $aparatur->name = $request->name;
+        $aparatur->position = $request->position;
+        $aparatur->save();
+        return redirect()->route('admin.aparatur')->with('success', 'Aparatur created successfully');
+    }
+
+    // edit
+    public function aparaturEdit($id)
+    {
+        $aparatur = Aparatur::find($id);
+        return view('admin.aparatur-edit', compact('aparatur'));
+    }
+    public function aparaturUpdate(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'position' => 'required',
+        ]);
+        $aparatur = Aparatur::find($request->id);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('aparatur', $imageName, 'public');
+            $aparatur->image = $imageName;
+        }
+        $aparatur->name = $request->name;
+        $aparatur->position = $request->position;
+        $aparatur->save();
+        return redirect()->route('admin.aparatur')->with('success', 'Aparatur updated successfully');
+    }
+    public function aparaturDestroy($id)
+    {
+        $aparatur = Aparatur::find($id);
+        $photo = $aparatur->image;
+        Storage::delete('public/aparatur/' . $photo);
+        $aparatur->delete();
+        return redirect()->route('admin.aparatur')->with('success', 'Aparatur deleted successfully');
+    }
+
+
 }

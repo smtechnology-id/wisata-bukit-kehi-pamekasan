@@ -52,4 +52,20 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/product/edit/{id}', [AdminController::class, 'productEdit'])->name('admin.product.edit');
     Route::post('/admin/product/update/', [AdminController::class, 'productUpdate'])->name('admin.product.update');
     Route::get('/admin/product/destroy/{id}', [AdminController::class, 'productDestroy'])->name('admin.product.destroy');
+
+    // Facility
+    Route::get('/admin/facility', [AdminController::class, 'facility'])->name('admin.facility');
+    Route::get('/admin/facility/create', [AdminController::class, 'facilityCreate'])->name('admin.facility.create');
+    Route::post('/admin/facility/store', [AdminController::class, 'facilityStore'])->name('admin.facility.store');
+    Route::get('/admin/facility/edit/{id}', [AdminController::class, 'facilityEdit'])->name('admin.facility.edit');
+    Route::post('/admin/facility/update/', [AdminController::class, 'facilityUpdate'])->name('admin.facility.update');
+    Route::get('/admin/facility/destroy/{id}', [AdminController::class, 'facilityDestroy'])->name('admin.facility.destroy');
+
+    // Aparatur
+    Route::get('/admin/aparatur', [AdminController::class, 'aparatur'])->name('admin.aparatur');
+    Route::get('/admin/aparatur/create', [AdminController::class, 'aparaturCreate'])->name('admin.aparatur.create');
+    Route::post('/admin/aparatur/store', [AdminController::class, 'aparaturStore'])->name('admin.aparatur.store');
+    Route::get('/admin/aparatur/edit/{id}', [AdminController::class, 'aparaturEdit'])->name('admin.aparatur.edit');
+    Route::post('/admin/aparatur/update/', [AdminController::class, 'aparaturUpdate'])->name('admin.aparatur.update');
+    Route::get('/admin/aparatur/destroy/{id}', [AdminController::class, 'aparaturDestroy'])->name('admin.aparatur.destroy');
 });

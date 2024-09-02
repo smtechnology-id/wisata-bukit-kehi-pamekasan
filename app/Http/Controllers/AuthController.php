@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function index()
+    {
+        return view('landing');
+    }
     public function login()
     {
         return view('login');
@@ -29,5 +33,9 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect('/login');
+    }
+    public function register()
+    {
+        return view('register');
     }
 }
