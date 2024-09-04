@@ -37,7 +37,7 @@ class AdminController extends Controller
             'name' => 'required',
             'short_description' => 'required',
             'content' => 'required',
-            'video' => 'mimes:mp4,avi,mkv,webm|max:2048',
+            'video' => 'mimes:mp4,avi,mkv,webm|max:50048',
         ]);
 
         if ($request->hasFile('image')) {
@@ -51,12 +51,15 @@ class AdminController extends Controller
             $videoName = time() . '.' . $video->getClientOriginalExtension();
             $video->storeAs('destination', $videoName, 'public');
         }
+        $slug = Str::slug($request->name);
 
         $destination = new Destination();
+        $destination->slug = $slug;
         $destination->image = $imageName; // Menyimpan nama gambar ke model
         $destination->name = $request->name;
         $destination->short_description = $request->short_description;
         $destination->content = $request->content;
+        $destination->video = $videoName;
         $destination->save();
         return redirect()->route('admin.destination');
     }
@@ -103,6 +106,10 @@ class AdminController extends Controller
     public function destinationDestroy($id)
     {
         $destination = Destination::find($id);
+        $photo = $destination->image;
+        $video = $destination->video;
+        Storage::delete('public/destination/' . $photo);
+        Storage::delete('public/destination/' . $video);
         $destination->delete();
         return redirect()->route('admin.destination');
     }
@@ -273,6 +280,8 @@ class AdminController extends Controller
             $image->storeAs('product', $imageName, 'public');
             $product->image = $imageName;
         }
+        $slug = Str::slug($request->name);
+        $product->slug = $slug;
         $product->name = $request->name;
         $product->price = $request->price;
         $product->status = $request->status;
