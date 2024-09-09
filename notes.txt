@@ -44,7 +44,7 @@ Home 	About us 	Destinasi 	galery		Product 	Artikel  	contact us
 
 4 x 150.000 = 600.000 + 1.000.000 + 150.000 - 300.000
 
-1.500.000 x 2 = 3.000.000
+1.500.000 
 
 
 Dipersiapkan
@@ -55,3 +55,24 @@ Composer
 Github + Gitbash
 
 
+Pemesanan Tiket 
+-> Jenis-Jenis tiket, Harga, Nomer Rekening Pembayaran, 
+
+CRUD Admin
+-> Jenis tiket (nama tiket, harga)
+-> Payment Information (Rekening Pembayaran)
+-> View Report Booking, (Bukti Pembayaran dari User -> Acc)
+-> View Booking User
+
+CRUD User
+-> View Catalog Tiket (Nama, Harga)
+-> Pemesanan  Tiket (Milih Tiket, Tanggal, Quantity, Upload Bukti Pembayaran)
+-> Nomor Pesanan
+-> View Pesanan by nomor pesanan (Status Pemesanan Tiket -> view e-tiket)
+-> E Tiket (Kode Booking)
+
+
+-> CRUD Table (Tiket, Rekening Pembayaran, Report Booking)
+
+-> Menu Admin +3 menu
+-> Menu User Catalog, Pemesanan, Succes Transaksi, Cek Status, E tiket (+5 Halaman)
