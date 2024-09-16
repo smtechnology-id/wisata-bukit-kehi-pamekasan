@@ -91,6 +91,10 @@
                             <a href="{{ route('admin.destination') }}" class="active"><i
                                     class="material-icons-two-tone">location_on</i>Destination</a>
                         </li>
+                        <li class="@yield('active_ticket')">
+                            <a href="{{ route('admin.ticket') }}" class="active"><i
+                                    class="material-icons-two-tone">inventory_2</i>Ticket</a>
+                        </li>
                         <li class="@yield('active_gallery')">
                             <a href="{{ route('admin.gallery') }}" class="active"><i
                                     class="material-icons-two-tone">photo_library</i>Gallery</a>
@@ -302,7 +306,7 @@
     <script>
         CKEDITOR.replace('editor');
     </script>
-
+    @yield('script')
     <!-- Javascripts -->
     <script src="{{ asset('assets/plugins/jquery/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>

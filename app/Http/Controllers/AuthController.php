@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
-use App\Models\Gallery;
-use App\Models\Product;
 use App\Models\Destination;
+use App\Models\Gallery;
+use App\Models\News;
+use App\Models\Product;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -93,4 +94,7 @@ class AuthController extends Controller
     {
         return view('contact');
     }
+
+
+
 }

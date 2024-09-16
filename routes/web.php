@@ -86,4 +86,13 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/aparatur/edit/{id}', [AdminController::class, 'aparaturEdit'])->name('admin.aparatur.edit');
     Route::post('/admin/aparatur/update/', [AdminController::class, 'aparaturUpdate'])->name('admin.aparatur.update');
     Route::get('/admin/aparatur/destroy/{id}', [AdminController::class, 'aparaturDestroy'])->name('admin.aparatur.destroy');
+
+
+    // Ticket
+    Route::get('/admin/ticket', [AdminController::class, 'ticket'])->name('admin.ticket');
+    Route::get('/admin/ticket/create', [AdminController::class, 'ticketCreate'])->name('admin.ticket.create');
+    Route::post('/admin/ticket/store', [AdminController::class, 'ticketStore'])->name('admin.ticket.store');
+    Route::get('/admin/ticket/edit/{id}', [AdminController::class, 'ticketEdit'])->name('admin.ticket.edit');
+    Route::post('/admin/ticket/update/', [AdminController::class, 'ticketUpdate'])->name('admin.ticket.update');
+    Route::get('/admin/ticket/destroy/{id}', [AdminController::class, 'ticketDestroy'])->name('admin.ticket.destroy');
 });

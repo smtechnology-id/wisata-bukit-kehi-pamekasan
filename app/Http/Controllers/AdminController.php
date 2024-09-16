@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
-use App\Models\Gallery;
-use App\Models\Product;
 use App\Models\Aparatur;
-use App\Models\Facility;
 use App\Models\Destination;
-use Illuminate\Support\Str;
+use App\Models\Facility;
+use App\Models\Gallery;
+use App\Models\News;
+use App\Models\Product;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -454,5 +455,41 @@ class AdminController extends Controller
         return redirect()->route('admin.aparatur')->with('success', 'Aparatur deleted successfully');
     }
 
-
+    // Ticket
+    public function ticket()
+    {
+        $tickets = Ticket::latest()->get();
+        return view('admin.ticket', compact('tickets'));
+    }
+    public function ticketCreate()
+    {
+        return view('admin.ticket-create');
+    }
+    public function ticketStore(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'price' => 'required',
+            'status' => 'required',
+            'description' => 'required',
+        ]);
+        $ticket = new Ticket();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('ticket', $imageName, 'public');
+            $ticket->image = $imageName;
+        }
+        $ticket->name = $request->name;
+        $ticket->price = $request->price;
+        $ticket->status = $request->status;
+        $ticket->description = $request->description;
+        $ticket->save();
+        return redirect()->route('admin.ticket')->with('success', 'Ticket created successfully');
+    }
+    public function ticketEdit($id)
+    {
+        $ticket = Ticket::find($id);
+    }
 }
