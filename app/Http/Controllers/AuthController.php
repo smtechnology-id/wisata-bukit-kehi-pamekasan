@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aparatur;
 use App\Models\Destination;
 use App\Models\Gallery;
 use App\Models\News;
@@ -14,7 +15,11 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('landing');
+        $destinations = Destination::all()->take(3);
+        $tickets = Ticket::all()->take(3);
+        $aparatur = Aparatur::all();
+        $news = News::latest()->take(3)->get();
+        return view('landing', compact('destinations', 'tickets', 'aparatur', 'news'));
     }
     public function login()
     {
@@ -95,6 +100,10 @@ class AuthController extends Controller
         return view('contact');
     }
 
-
+    public function ticket()
+    {
+        $tickets = Ticket::all();
+        return view('ticket', compact('tickets'));
+    }
 
 }

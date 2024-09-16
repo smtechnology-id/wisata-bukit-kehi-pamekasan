@@ -23,10 +23,16 @@
                             @foreach ($tickets as $ticket)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><img src="{{ asset('storage/ticket/' . $ticket->image) }}" alt="" style="width: 100px; height: 100px;"></td>
+                                    <td><img src="{{ asset('storage/ticket/' . $ticket->photo) }}" alt="" style="width: 100px; height: 100px;"></td>
                                     <td>{{ $ticket->name }}</td>
-                                    <td>{{ $ticket->price }}</td>
-                                    <td>{{ $ticket->status }}</td>
+                                    <td>{{ 'Rp. ' . number_format($ticket->price, 0, ',', '.') }}</td>
+                                    <td>
+                                        @if ($ticket->status == 'draft')
+                                            <span class="badge badge-danger">Draft</span>
+                                        @else
+                                            <span class="badge badge-success">Publish</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <a href="{{ route('admin.ticket.edit', $ticket->id) }}" class="btn btn-warning">Edit</a>
                                         <a href="{{ route('admin.ticket.destroy', $ticket->id) }}" class="btn btn-danger">Delete</a>

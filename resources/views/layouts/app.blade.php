@@ -61,9 +61,9 @@
                 <div class="sidebar-user-switcher user-activity-online">
                     <a href="#">
                         @if (Auth::user()->photo)
-                            <img src="{{ asset('assets/images/photo/' . Auth::user()->photo) }}">
+                        <img src="{{ asset('assets/images/photo/' . Auth::user()->photo) }}">
                         @else
-                            <img src="{{ asset('assets/images/user.png') }}">
+                        <img src="{{ asset('assets/images/user.png') }}">
                         @endif
                         <span class="activity-indicator"></span>
                         <span class="user-info-text">{{ Auth::user()->name }}<br><span class="user-state-info">
@@ -79,38 +79,50 @@
                         WBKP
                     </li>
                     @if (Auth::user()->level == 'admin')
-                        <li class="@yield('active_dashboard')">
-                            <a href="" class="active"><i
-                                    class="material-icons-two-tone">dashboard</i>Dashboard</a>
-                        </li>
-                        <li class="@yield('active_aparatur')">
-                            <a href="{{ route('admin.aparatur') }}" class="active"><i
-                                    class="material-icons-two-tone">people</i>Aparatur</a>
-                        </li>
-                        <li class="@yield('active_destination')">
-                            <a href="{{ route('admin.destination') }}" class="active"><i
-                                    class="material-icons-two-tone">location_on</i>Destination</a>
-                        </li>
-                        <li class="@yield('active_ticket')">
-                            <a href="{{ route('admin.ticket') }}" class="active"><i
-                                    class="material-icons-two-tone">inventory_2</i>Ticket</a>
-                        </li>
-                        <li class="@yield('active_gallery')">
-                            <a href="{{ route('admin.gallery') }}" class="active"><i
-                                    class="material-icons-two-tone">photo_library</i>Gallery</a>
-                        </li>
-                        <li class="@yield('active_news')">
-                            <a href="{{ route('admin.news') }}" class="active"><i
-                                    class="material-icons-two-tone">library_books</i>News & Article</a>
-                        </li>
-                        <li class="@yield('active_product')">
-                            <a href="{{ route('admin.product') }}" class="active"><i
-                                    class="material-icons-two-tone">inventory_2</i>Product</a>
-                        </li>
-                        <li class="@yield('active_facility')">
-                            <a href="{{ route('admin.facility') }}" class="active"><i
-                                    class="material-icons-two-tone">inventory_2</i>Facility</a>
-                        </li>
+                    <li class="@yield('active_dashboard')">
+                        <a href="" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
+                    </li>
+                    <li class="@yield('active_aparatur')">
+                        <a href="{{ route('admin.aparatur') }}" class="active"><i
+                                class="material-icons-two-tone">people</i>Aparatur</a>
+                    </li>
+                    <li class="@yield('active_destination')">
+                        <a href="{{ route('admin.destination') }}" class="active"><i
+                                class="material-icons-two-tone">location_on</i>Destination</a>
+                    </li>
+
+                    <li class="@yield('active_gallery')">
+                        <a href="{{ route('admin.gallery') }}" class="active"><i
+                                class="material-icons-two-tone">photo_library</i>Gallery</a>
+                    </li>
+                    <li class="@yield('active_news')">
+                        <a href="{{ route('admin.news') }}" class="active"><i
+                                class="material-icons-two-tone">library_books</i>News & Article</a>
+                    </li>
+
+                    <li class="@yield('active_facility')">
+                        <a href="{{ route('admin.facility') }}" class="active"><i
+                                class="material-icons-two-tone">inventory_2</i>Facility</a>
+                    </li>
+
+                    <li class="sidebar-title">
+                        Product
+                    </li>
+                    <li class="@yield('active_product')">
+                        <a href="{{ route('admin.product') }}" class="active"><i
+                                class="material-icons-two-tone">inventory_2</i>Product</a>
+                    </li>
+
+
+                    <li class="sidebar-title">
+                        Ticket
+                    </li>
+                    <li class="@yield('active_ticket')">
+                        <a href="{{ route('admin.ticket') }}" class="active"><i
+                                class="material-icons-two-tone">inventory_2</i>Ticket</a>
+                    </li>
+                
+                    
                     @endif
 
 
@@ -141,19 +153,19 @@
                                             class="material-icons">first_page</i></a>
                                 </li>
                                 <li class="nav-item dropdown hidden-on-mobile">
-                                    <a class="nav-link dropdown-toggle" href="#" id="addDropdownLink"
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" href="#" id="addDropdownLink" role="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="material-icons">add</i>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="addDropdownLink">
                                         @if (Auth::user()->level == 'admin')
-                                            <li><a class="dropdown-item" href="#">New Account Duta Belia</a>
-                                            </li>
-                                            <li><a class="dropdown-item" href="#">New Account Guru</a></li>
-                                            <li><a class="dropdown-item" href="#">New Account Puskesmas</a></li>
+                                        <li><a class="dropdown-item" href="#">New Account Duta Belia</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">New Account Guru</a></li>
+                                        <li><a class="dropdown-item" href="#">New Account Puskesmas</a></li>
                                         @elseif(Auth::user()->level == 'duta')
-                                            <li><a class="dropdown-item" href="#">New Data Siswa</a></li>
-                                            <li><a class="dropdown-item" href="#">New Laporan</a></li>
+                                        <li><a class="dropdown-item" href="#">New Data Siswa</a></li>
+                                        <li><a class="dropdown-item" href="#">New Laporan</a></li>
                                         @endif
 
                                     </ul>
@@ -164,87 +176,6 @@
                         </div>
                         <div class="d-flex">
                             <ul class="navbar-nav">
-
-                                {{-- <li class="nav-item hidden-on-mobile">
-                                    <a class="nav-link nav-notifications-toggle" id="notificationsDropDown"
-                                        href="#" data-bs-toggle="dropdown">4</a>
-                                    <div class="dropdown-menu dropdown-menu-end notifications-dropdown"
-                                        aria-labelledby="notificationsDropDown">
-                                        <h6 class="dropdown-header">Notifications</h6>
-                                        <div class="notifications-dropdown-list">
-                                            <a href="#">
-                                                <div class="notifications-dropdown-item">
-                                                    <div class="notifications-dropdown-item-image">
-                                                        <span class="notifications-badge bg-info text-white">
-                                                            <i class="material-icons-outlined">campaign</i>
-                                                        </span>
-                                                    </div>
-                                                    <div class="notifications-dropdown-item-text">
-                                                        <p class="bold-notifications-text">Donec tempus nisi sed erat
-                                                            vestibulum, eu suscipit ex laoreet</p>
-                                                        <small>19:00</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="notifications-dropdown-item">
-                                                    <div class="notifications-dropdown-item-image">
-                                                        <span class="notifications-badge bg-danger text-white">
-                                                            <i class="material-icons-outlined">bolt</i>
-                                                        </span>
-                                                    </div>
-                                                    <div class="notifications-dropdown-item-text">
-                                                        <p class="bold-notifications-text">Quisque ligula dui,
-                                                            tincidunt nec pharetra eu, fringilla quis mauris</p>
-                                                        <small>18:00</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="notifications-dropdown-item">
-                                                    <div class="notifications-dropdown-item-image">
-                                                        <span class="notifications-badge bg-success text-white">
-                                                            <i class="material-icons-outlined">alternate_email</i>
-                                                        </span>
-                                                    </div>
-                                                    <div class="notifications-dropdown-item-text">
-                                                        <p>Nulla id libero mattis justo euismod congue in et metus</p>
-                                                        <small>yesterday</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="notifications-dropdown-item">
-                                                    <div class="notifications-dropdown-item-image">
-                                                        <span class="notifications-badge">
-                                                            <img src="{{ asset('assets/images/avatars/avatar.png') }}"
-                                                                alt="">
-                                                        </span>
-                                                    </div>
-                                                    <div class="notifications-dropdown-item-text">
-                                                        <p>Praesent sodales lobortis velit ac pellentesque</p>
-                                                        <small>yesterday</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="notifications-dropdown-item">
-                                                    <div class="notifications-dropdown-item-image">
-                                                        <span class="notifications-badge">
-                                                            <img src="{{ asset('assets/images/avatars/avatar.png') }}"
-                                                                alt="">
-                                                        </span>
-                                                    </div>
-                                                    <div class="notifications-dropdown-item-text">
-                                                        <p>Praesent lacinia ante eget tristique mattis. Nam sollicitudin
-                                                            velit sit amet auctor porta</p>
-                                                        <small>yesterday</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li> --}}
                                 <li class="nav-item hidden-on-mobile">
                                     <a class="nav-link" href="{{ route('logout') }}">Logout</a>
                                 </li>
@@ -264,33 +195,33 @@
                             </div>
                         </div>
                         @if (session('success'))
-                            <div class="alert alert-custom" role="alert">
-                                <div class="custom-alert-icon icon-primary"><i
-                                        class="material-icons-outlined">done</i></div>
-                                <div class="alert-content">
-                                    <span class="alert-title">{{ session('success') }}</span>
-                                </div>
+                        <div class="alert alert-custom" role="alert">
+                            <div class="custom-alert-icon icon-primary"><i class="material-icons-outlined">done</i>
                             </div>
+                            <div class="alert-content">
+                                <span class="alert-title">{{ session('success') }}</span>
+                            </div>
+                        </div>
                         @endif
                         @if (session('error'))
-                            <div class="alert alert-custom" role="alert">
-                                <div class="custom-alert-icon icon-warning"><i
-                                        class="material-icons-outlined">error</i></div>
-                                <div class="alert-content">
-                                    <span class="alert-title">{{ session('error') }}</span>
-                                </div>
+                        <div class="alert alert-custom" role="alert">
+                            <div class="custom-alert-icon icon-warning"><i class="material-icons-outlined">error</i>
                             </div>
+                            <div class="alert-content">
+                                <span class="alert-title">{{ session('error') }}</span>
+                            </div>
+                        </div>
                         @endif
                         @if ($errors->any())
-                            <div class="alert alert-custom" role="alert">
-                                <div class="custom-alert-icon icon-warning"><i
-                                        class="material-icons-outlined">error</i></div>
-                                <div class="alert-content">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </div>
+                        <div class="alert alert-custom" role="alert">
+                            <div class="custom-alert-icon icon-warning"><i class="material-icons-outlined">error</i>
                             </div>
+                            <div class="alert-content">
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </div>
+                        </div>
                         @endif
                         @yield('content')
                     </div>
@@ -299,9 +230,9 @@
         </div>
     </div>
     @if (session('popup'))
-        <script>
-            alert("{{ session('success') }}");
-        </script>
+    <script>
+        alert("{{ session('success') }}");
+    </script>
     @endif
     <script>
         CKEDITOR.replace('editor');

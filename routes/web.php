@@ -36,7 +36,11 @@ Route::get('/destination/{slug}', [AuthController::class, 'destinationDetail'])-
 Route::get('/news/{slug}', [AuthController::class, 'newsDetail'])->name('landing.news.detail');
 
 // Produk Detail
-Route::get('/product/{slug}', [AuthController::class, 'productShow'])->name('product.show');
+Route::get('/product-show/{slug}', [AuthController::class, 'productShow'])->name('product.show');
+
+// Ticket
+Route::get('/ticket', [AuthController::class, 'ticket'])->name('ticket');
+Route::get('/ticket/{id}', [AuthController::class, 'ticketShow'])->name('ticket.show');
 
 Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');

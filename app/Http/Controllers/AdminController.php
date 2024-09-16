@@ -470,19 +470,19 @@ class AdminController extends Controller
         $request->validate([
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'status' => 'required',
             'description' => 'required',
         ]);
         $ticket = new Ticket();
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('ticket', $imageName, 'public');
-            $ticket->image = $imageName;
+            $ticket->photo = $imageName;
         }
         $ticket->name = $request->name;
-        $ticket->price = $request->price;
+        $ticket->price = str_replace(',', '', $request->price);
         $ticket->status = $request->status;
         $ticket->description = $request->description;
         $ticket->save();
@@ -491,5 +491,38 @@ class AdminController extends Controller
     public function ticketEdit($id)
     {
         $ticket = Ticket::find($id);
+        return view('admin.ticket-edit', compact('ticket'));
     }
+    public function ticketUpdate(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'status' => 'required',
+            'description' => 'required',
+        ]);
+        $ticket = Ticket::find($request->id);
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('ticket', $imageName, 'public');
+            $ticket->photo = $imageName;
+        }
+        $ticket->name = $request->name;
+        $ticket->price = str_replace(',', '', $request->price);
+        $ticket->status = $request->status;
+        $ticket->description = $request->description;
+        $ticket->save();
+        return redirect()->route('admin.ticket')->with('success', 'Ticket updated successfully');
+    }
+    public function ticketDestroy($id)
+    {
+        $ticket = Ticket::find($id);
+        $photo = $ticket->photo;
+        $ticket->update(['status' => 'draft']);
+        return redirect()->route('admin.ticket')->with('success', 'Ticket deleted successfully');
+    }
+
 }
