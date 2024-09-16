@@ -15,10 +15,28 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', [AuthController::class, 'index'])->name('index');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginPost'])->name('loginPost');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Navbar
+Route::get('/', [AuthController::class, 'index'])->name('index');
+Route::get('/about', [AuthController::class, 'about'])->name('landing.about');
+Route::get('/statistik', [AuthController::class, 'statistik'])->name('landing.statistik');
+Route::get('/destination', [AuthController::class, 'destination'])->name('landing.destination');
+Route::get('/gallery', [AuthController::class, 'gallery'])->name('landing.gallery');
+Route::get('/product', [AuthController::class, 'product'])->name('landing.product');
+Route::get('/news', [AuthController::class, 'news'])->name('landing.news');
+Route::get('/contact', [AuthController::class, 'contact'])->name('landing.contact');
+
+// Destination Detail
+Route::get('/destination/{slug}', [AuthController::class, 'destinationDetail'])->name('destination.detail');
+
+// News Detail
+Route::get('/news/{slug}', [AuthController::class, 'newsDetail'])->name('landing.news.detail');
+
+// Produk Detail
+Route::get('/product/{slug}', [AuthController::class, 'productShow'])->name('product.show');
 
 Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -52,4 +70,20 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/product/edit/{id}', [AdminController::class, 'productEdit'])->name('admin.product.edit');
     Route::post('/admin/product/update/', [AdminController::class, 'productUpdate'])->name('admin.product.update');
     Route::get('/admin/product/destroy/{id}', [AdminController::class, 'productDestroy'])->name('admin.product.destroy');
+
+    // Facility
+    Route::get('/admin/facility', [AdminController::class, 'facility'])->name('admin.facility');
+    Route::get('/admin/facility/create', [AdminController::class, 'facilityCreate'])->name('admin.facility.create');
+    Route::post('/admin/facility/store', [AdminController::class, 'facilityStore'])->name('admin.facility.store');
+    Route::get('/admin/facility/edit/{id}', [AdminController::class, 'facilityEdit'])->name('admin.facility.edit');
+    Route::post('/admin/facility/update/', [AdminController::class, 'facilityUpdate'])->name('admin.facility.update');
+    Route::get('/admin/facility/destroy/{id}', [AdminController::class, 'facilityDestroy'])->name('admin.facility.destroy');
+
+    // Aparatur
+    Route::get('/admin/aparatur', [AdminController::class, 'aparatur'])->name('admin.aparatur');
+    Route::get('/admin/aparatur/create', [AdminController::class, 'aparaturCreate'])->name('admin.aparatur.create');
+    Route::post('/admin/aparatur/store', [AdminController::class, 'aparaturStore'])->name('admin.aparatur.store');
+    Route::get('/admin/aparatur/edit/{id}', [AdminController::class, 'aparaturEdit'])->name('admin.aparatur.edit');
+    Route::post('/admin/aparatur/update/', [AdminController::class, 'aparaturUpdate'])->name('admin.aparatur.update');
+    Route::get('/admin/aparatur/destroy/{id}', [AdminController::class, 'aparaturDestroy'])->name('admin.aparatur.destroy');
 });

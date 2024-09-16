@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2); // Harga produk
             $table->string('image')->nullable(); // Gambar produk
             $table->string('status')->default('active'); // Status aktif atau tidak
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

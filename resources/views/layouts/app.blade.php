@@ -83,6 +83,10 @@
                             <a href="" class="active"><i
                                     class="material-icons-two-tone">dashboard</i>Dashboard</a>
                         </li>
+                        <li class="@yield('active_aparatur')">
+                            <a href="{{ route('admin.aparatur') }}" class="active"><i
+                                    class="material-icons-two-tone">people</i>Aparatur</a>
+                        </li>
                         <li class="@yield('active_destination')">
                             <a href="{{ route('admin.destination') }}" class="active"><i
                                     class="material-icons-two-tone">location_on</i>Destination</a>
@@ -98,6 +102,10 @@
                         <li class="@yield('active_product')">
                             <a href="{{ route('admin.product') }}" class="active"><i
                                     class="material-icons-two-tone">inventory_2</i>Product</a>
+                        </li>
+                        <li class="@yield('active_facility')">
+                            <a href="{{ route('admin.facility') }}" class="active"><i
+                                    class="material-icons-two-tone">inventory_2</i>Facility</a>
                         </li>
                     @endif
 
