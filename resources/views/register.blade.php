@@ -11,7 +11,7 @@
     <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
-    <title>Login || Wisata Bukit Kehi Pamekasan</title>
+    <title>Register || Wisata Bukit Kehi Pamekasan</title>
     <!-- Styles -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
@@ -33,12 +33,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/neptune.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/neptune.png" />
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    
 </head>
 
 <body>
@@ -50,41 +45,35 @@
             <div class="logo">
                 <a href="{{ route('index') }}">Wisata Bukit Kehi Pamekasan</a>
             </div>
-            <p class="auth-description">Please sign-in to your account and continue to the dashboard.</p>
+            <p class="auth-description">Register to continue to the dashboard.</p>
             @if (session('error'))
                 <div class="alert alert-danger">
                     {{ session('error') }}
                 </div>
             @endif
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form action="{{ route('loginPost') }}" method="post">
+            <form action="{{ route('registerPost') }}" method="post">
                 @csrf
                 <div class="auth-credentials m-b-xxl">
-                    <label for="signInEmail" class="form-label">Email address</label>
-                    <input type="email" name="email" class="form-control m-b-md" id="signInEmail" aria-describedby="signInEmail"
-                        placeholder="example@gmail.com">
+                    <label for="signInEmail" class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control m-b-md" id="signInEmail" aria-describedby="signInEmail"
+                        placeholder="Name">
+
+                    <label for="signInPassword" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" aria-describedby="email"
+                        placeholder="Email">
 
                     <label for="signInPassword" class="form-label">Password</label>
                     <input type="password" name="password" class="form-control" id="signInPassword" aria-describedby="signInPassword"
-                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                        placeholder="Password">
+
+                    <label for="signInPassword" class="form-label">Confirm Password</label>
+                    <input type="password" name="password_confirmation" class="form-control" id="signInPassword" aria-describedby="signInPassword"
+                        placeholder="Confirm Password">
                 </div>
 
                 <div class="auth-submit">
-                    <button class="btn btn-primary" type="submit">Login</button>
-                    <a href="{{ route('register') }}" class="auth-forgot-password float-end">Register</a>
+                    <button class="btn btn-primary" type="submit">Register</button>
+                    <a href="{{ route('login') }}" class="auth-forgot-password float-end">Login</a>
                 </div>
             </form>
             

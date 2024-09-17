@@ -53,7 +53,7 @@
                                         <h3 class="mb-0">Rp. {{ number_format($ticket->price, 0, ',', '.') }}</h3>
                                         <small>Per Adult</small>
                                     </div>
-                                    <a href="{{ route('ticket.show', $ticket->id) }}" class="nir-btn">View Detail</a>
+                                    <a href="{{ route('checkout', $ticket->id) }}" class="nir-btn">Checkout</a>
                                 </div>
                             </div>
                         </div>

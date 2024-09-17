@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,7 @@ Route::get('/gallery', [AuthController::class, 'gallery'])->name('landing.galler
 Route::get('/product', [AuthController::class, 'product'])->name('landing.product');
 Route::get('/news', [AuthController::class, 'news'])->name('landing.news');
 Route::get('/contact', [AuthController::class, 'contact'])->name('landing.contact');
+Route::get('/sejarah', [AuthController::class, 'sejarah'])->name('landing.sejarah');
 
 // Destination Detail
 Route::get('/destination/{slug}', [AuthController::class, 'destinationDetail'])->name('destination.detail');
@@ -44,6 +47,25 @@ Route::get('/product-show/{slug}', [AuthController::class, 'productShow'])->name
 // Ticket
 Route::get('/ticket', [AuthController::class, 'ticket'])->name('ticket');
 Route::get('/ticket/{id}', [AuthController::class, 'ticketShow'])->name('ticket.show');
+
+// Checkout
+
+
+
+// User
+Route::group(['middleware' => ['auth.middleware:user']], function () {
+    Route::get('/cart/add/{id}', [UserController::class, 'cartAdd'])->name('cart.add');
+    Route::get('/cart', [UserController::class, 'cart'])->name('cart');
+    Route::get('/cart/destroy/{id}', [UserController::class, 'cartDestroy'])->name('cart.destroy');
+
+    // Checkout
+    Route::get('/checkout/{id}', [UserController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout/process', [UserController::class, 'checkoutProcess'])->name('checkout.process');
+
+    // Order
+    Route::get('/order', [UserController::class, 'order'])->name('user.order');
+    Route::get('/order/{id}', [UserController::class, 'orderShow'])->name('user.order.show');
+});
 
 Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');

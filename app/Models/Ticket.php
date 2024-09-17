@@ -15,4 +15,12 @@ class Ticket extends Model
         'description',
         'status',
     ];
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+    public function checkouts()
+    {
+        return $this->hasMany(Checkout::class);
+    }
 }

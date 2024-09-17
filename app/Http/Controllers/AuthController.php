@@ -8,8 +8,10 @@ use App\Models\Gallery;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -30,11 +32,13 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Redirect ke halaman yang diinginkan setelah login berhasil
-            return redirect()->intended('/admin/dashboard');
+           if (Auth::user()->level == 'admin') {
+            return redirect('/admin/dashboard');
+           } elseif (Auth::user()->level == 'user') {
+            return redirect()->intended('/');
+           }
         }
 
-        // Jika login gagal, kembali ke halaman login dengan pesan error
         return redirect('/login')->withErrors([
             'email' => 'Email atau password salah.',
         ]);
@@ -47,6 +51,22 @@ class AuthController extends Controller
     public function register()
     {
         return view('register');
+    }
+    public function registerPost(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|same:password',
+        ]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'level' => 'user',
+            'password' => Hash::make($request->password),
+        ]);
+        return redirect('/login')->with('success', 'Register berhasil, silahkan login');
     }
 
     // Destination
@@ -106,4 +126,9 @@ class AuthController extends Controller
         return view('ticket', compact('tickets'));
     }
 
+    // Sejarah
+    public function sejarah()
+    {
+        return view('sejarah');
+    }
 }
