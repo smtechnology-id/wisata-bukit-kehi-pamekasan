@@ -84,7 +84,7 @@
                         </div><!-- /.navbar-collapse -->     
                         <div class="register-login d-flex align-items-center">
                             <a href="{{ route('login') }}" class="me-3">
-                                <i class="icon-user"></i> Login
+                                <i class="icon-user"></i> Login/Register
                             </a>
                             <a href="{{ route('ticket') }}" class="nir-btn white">Pesan Ticket</a>
                         </div> 
@@ -209,36 +209,33 @@
                         <div class="row">
                             <div class="col-lg-6">
                                <div class="blog-image rounded">
-                                    <a href="#" style="background-image: url(images/trending/trending5.jpg);"></a>
+                                    <a href="#" style="background-image: url({{ asset('assets-landing/images/trending/trending5.jpg') }});"></a>
                                 </div> 
                             </div>
                             <div class="col-lg-6">
                                 <h4 class="text-center border-b pb-2">Login</h4>
-                                <div class="log-reg-button d-flex align-items-center justify-content-between">
-                                    <button type="submit" class="btn btn-fb">
-                                        <i class="fab fa-facebook"></i> Login with Facebook
-                                    </button>
-                                    <button type="submit" class="btn btn-google">
-                                        <i class="fab fa-google"></i> Login with Google
-                                    </button>
-                                </div>
                                 <hr class="log-reg-hr position-relative my-4 overflow-visible">
-                                <form method="post" action="#" name="contactform" id="contactform">
+                                <form action="{{ route('loginPost') }}" method="post">
+                                    @csrf
+                                    <!-- Menampilkan error jika ada -->
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <div class="form-group mb-2">
-                                        <input type="text" name="user_name" class="form-control" id="fname" placeholder="User Name or Email Address">
+                                        <input type="text" name="email" class="form-control" id="email" placeholder="Email Address">
                                     </div>
                                     <div class="form-group mb-2">
-                                        <input type="password" name="password_name" class="form-control" id="lpass" placeholder="Password">
-                                    </div>
-                                    <div class="form-group mb-2">
-                                        <input type="checkbox" class="custom-control-input" id="exampleCheck">
-                                        <label class="custom-control-label mb-0" for="exampleCheck1">Remember me</label>
-                                        <a class="float-end" href="#">Lost your password?</a>
+                                        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                                     </div>
                                     <div class="comment-btn mb-2 pb-2 text-center border-b">
-                                        <input type="submit" class="nir-btn w-100" id="submit" value="Login">
+                                        <button type="submit" class="nir-btn w-100">Login</button>
                                     </div>
-                                    <p class="text-center">Don't have an account? <a href="#" class="theme">Register</a></p>
                                 </form>
                             </div>
                         </div>
@@ -248,7 +245,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                <div class="blog-image rounded">
-                                    <a href="#" style="background-image: url(images/trending/trending5.jpg);"></a>
+                                    <a href="#" style="background-image: url({{ asset('assets-landing/images/trending/trending5.jpg') }});"></a>
                                 </div> 
                             </div>
                             <div class="col-lg-6">
@@ -262,18 +259,19 @@
                                     </button>
                                 </div>
                                 <hr class="log-reg-hr position-relative my-4 overflow-visible">
-                                <form method="post" action="#" name="contactform1" id="contactform1">
+                                <form method="post" action="{{ route('registerPost') }}" name="contactform1" id="contactform1">
+                                    @csrf
                                     <div class="form-group mb-2">
-                                        <input type="text" name="user_name" class="form-control" id="fname1" placeholder="User Name">
+                                        <input type="text" name="name" class="form-control" id="fname1" placeholder="Nama Lengkap">
                                     </div>
                                     <div class="form-group mb-2">
-                                        <input type="text" name="user_name" class="form-control" id="femail" placeholder="Email Address">
+                                        <input type="text" name="email" class="form-control" id="femail" placeholder="Email Address">
                                     </div>
                                     <div class="form-group mb-2">
-                                        <input type="password" name="password_name" class="form-control" id="lpass1" placeholder="Password">
+                                        <input type="password" name="password" class="form-control" id="lpass1" placeholder="Password">
                                     </div>
                                     <div class="form-group mb-2">
-                                        <input type="password" name="password_name" class="form-control" id="lrepass" placeholder="Re-enter Password">
+                                        <input type="password" name="password_confirmation" class="form-control" id="lrepass" placeholder="Re-enter Password">
                                     </div>
                                     <div class="form-group mb-2 d-flex">
                                         <input type="checkbox" class="custom-control-input" id="exampleCheck1">
@@ -282,7 +280,7 @@
                                     <div class="comment-btn mb-2 pb-2 text-center border-b">
                                         <input type="submit" class="nir-btn w-100" id="submit1" value="Register">
                                     </div>
-                                    <p class="text-center">Already have an account? <a href="#" class="theme">Login</a></p>
+                                    <p class="text-center">Sudah punya akun? <a href="#" class="theme">Login</a></p>
                                 </form>
                             </div>
                         </div>

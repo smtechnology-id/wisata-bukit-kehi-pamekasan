@@ -521,7 +521,8 @@ class AdminController extends Controller
     {
         $ticket = Ticket::find($id);
         $photo = $ticket->photo;
-        $ticket->update(['status' => 'draft']);
+        Storage::delete('public/ticket/' . $photo);
+        $ticket->delete();
         return redirect()->route('admin.ticket')->with('success', 'Ticket deleted successfully');
     }
 

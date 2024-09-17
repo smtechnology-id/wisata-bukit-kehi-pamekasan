@@ -19,6 +19,9 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginPost'])->name('loginPost');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'registerPost'])->name('registerPost');
+
 // Navbar
 Route::get('/', [AuthController::class, 'index'])->name('index');
 Route::get('/about', [AuthController::class, 'about'])->name('landing.about');
