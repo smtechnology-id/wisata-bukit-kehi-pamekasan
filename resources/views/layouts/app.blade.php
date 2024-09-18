@@ -112,7 +112,13 @@
                         <a href="{{ route('admin.product') }}" class="active"><i
                                 class="material-icons-two-tone">inventory_2</i>Product</a>
                     </li>
-
+                    <li class="sidebar-title">
+                        Statistik
+                    </li>
+                    <li class="@yield('active_statistik')">
+                        <a href="{{ route('admin.statistik') }}" class="active"><i
+                                class="material-icons-two-tone">bar_chart</i>Statistik Pengunjung`</a>
+                    </li>
 
                     <li class="sidebar-title">
                         Ticket
@@ -121,7 +127,16 @@
                         <a href="{{ route('admin.ticket') }}" class="active"><i
                                 class="material-icons-two-tone">inventory_2</i>Ticket</a>
                     </li>
-                
+                    {{-- Pesanan Ticket --}}
+                    <li class="@yield('active_order')">
+                        <a href="{{ route('admin.order') }}" class="active"><i
+                                class="material-icons-two-tone">inventory_2</i>Pesanan Ticket</a>
+                    </li>
+                    <li class="@yield('active_order')">
+                        <a href="{{ route('admin.payment.information') }}" class="active"><i
+                                class="material-icons-two-tone">credit_card</i>Payment Information</a>
+                    </li>
+                    
                     
                     @endif
 

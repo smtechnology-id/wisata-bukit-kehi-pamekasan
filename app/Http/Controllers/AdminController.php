@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aparatur;
-use App\Models\Destination;
-use App\Models\Facility;
-use App\Models\Gallery;
 use App\Models\News;
-use App\Models\Product;
 use App\Models\Ticket;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Gallery;
+use App\Models\Product;
+use App\Models\Aparatur;
+use App\Models\Checkout;
+use App\Models\Facility;
+use App\Models\Statistik;
+use App\Models\Destination;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\PaymentInformation;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -526,4 +529,121 @@ class AdminController extends Controller
         return redirect()->route('admin.ticket')->with('success', 'Ticket deleted successfully');
     }
 
+
+    // Order
+    public function order()
+    {
+        $orders_request = Checkout::where('status', 'request')->get();
+        $orders_success = Checkout::where('status', 'accepted')->get();
+        $orders_pending = Checkout::where('status', 'pending')->get();
+        $orders_rejected = Checkout::where('status', 'rejected')->get();
+        return view('admin.order', compact('orders_request', 'orders_success', 'orders_pending', 'orders_rejected'));
+    }
+    public function orderUpdate(Request $request)
+    {
+        $order = Checkout::find($request->id);
+        $order->status = $request->status;
+        $order->save();
+        return redirect()->route('admin.order')->with('success', 'Order updated successfully');
+    }
+
+    // Payment Information
+    public function paymentInformation()
+    {
+        $paymentInfo = PaymentInformation::latest()->get();
+        return view('admin.payment-information', compact('paymentInfo'));
+    }
+    public function paymentInformationStore(Request $request)
+    {
+        $request->validate([
+            'bank_name' => 'required',
+            'bank_account_number' => 'required|numeric',
+            'bank_account_name' => 'required',
+        ]);
+        $paymentInfo = new PaymentInformation();
+        $paymentInfo->bank_name = $request->bank_name;
+        $paymentInfo->bank_account_number = $request->bank_account_number;
+        $paymentInfo->bank_account_name = $request->bank_account_name;
+        $paymentInfo->save();
+        return redirect()->route('admin.payment.information')->with('success', 'Payment Information created successfully');
+    }
+    public function paymentInformationUpdate(Request $request)
+    {
+        $request->validate([
+            'bank_name' => 'required',
+            'bank_account_number' => 'required|numeric',
+            'bank_account_name' => 'required',
+        ]);
+        $paymentInfo = PaymentInformation::find($request->id);
+        $paymentInfo->bank_name = $request->bank_name;
+        $paymentInfo->bank_account_number = $request->bank_account_number;
+        $paymentInfo->bank_account_name = $request->bank_account_name;
+        $paymentInfo->save();
+        return redirect()->route('admin.payment.information')->with('success', 'Payment Information updated successfully');
+    }
+    public function paymentInformationDestroy($id)
+    {
+        $paymentInfo = PaymentInformation::find($id);
+        $paymentInfo->delete();
+        return redirect()->route('admin.payment.information')->with('success', 'Payment Information deleted successfully');
+    }
+
+    // Statistik
+    public function statistik()
+    {
+        $statistik = Statistik::all();
+        return view('admin.statistik', compact('statistik'));
+    }
+
+    public function statistikStore(Request $request)
+    {
+        $request->validate([
+            'bulan' => 'required|numeric',
+            'tahun' => 'required|numeric',
+            'pengunjung_perempuan' => 'required|numeric',
+            'pengunjung_laki_laki' => 'required|numeric',
+            'tidak_diketahui' => 'required|numeric',
+        ]);
+        if (Statistik::where('bulan', $request->bulan)->where('tahun', $request->tahun)->exists()) {
+            return redirect()->route('admin.statistik')->with('error', 'Statistik already exists');
+        }
+        $statistik = new Statistik();
+        $statistik->bulan = $request->bulan;
+        $statistik->tahun = $request->tahun;
+        $statistik->jumlah_perempuan = $request->pengunjung_perempuan;
+        $statistik->jumlah_lakilaki = $request->pengunjung_laki_laki;
+        $statistik->tidak_diketahui = $request->tidak_diketahui;
+        $statistik->save();
+        return redirect()->route('admin.statistik')->with('success', 'Statistik created successfully');
+    }
+
+    public function statistikEdit($id)
+    {
+        $statistik = Statistik::find($id);
+        return view('admin.statistik-edit', compact('statistik'));
+    }
+    public function statistikUpdate(Request $request)
+    {
+        $request->validate([
+            'bulan' => 'required|numeric',
+            'tahun' => 'required|numeric',
+            'pengunjung_perempuan' => 'required|numeric',
+            'pengunjung_laki_laki' => 'required|numeric',
+            'tidak_diketahui' => 'required|numeric',
+        ]);
+        $statistik = Statistik::find($request->id);
+        $statistik->bulan = $request->bulan;
+        $statistik->tahun = $request->tahun;
+        $statistik->jumlah_perempuan = $request->pengunjung_perempuan;
+        $statistik->jumlah_lakilaki = $request->pengunjung_laki_laki;
+        $statistik->tidak_diketahui = $request->tidak_diketahui;
+        $statistik->save();
+        return redirect()->route('admin.statistik')->with('success', 'Statistik updated successfully');
+    }
+    public function statistikDestroy($id)
+    {
+        $statistik = Statistik::find($id);
+        $statistik->delete();
+        return redirect()->route('admin.statistik')->with('success', 'Statistik deleted successfully');
+    }
 }

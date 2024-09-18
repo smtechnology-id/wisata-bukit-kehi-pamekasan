@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth.middleware:user']], function () {
 
     // Order
     Route::get('/order', [UserController::class, 'order'])->name('user.order');
-    Route::get('/order/{id}', [UserController::class, 'orderShow'])->name('user.order.show');
+    Route::get('/order/{code}', [UserController::class, 'eTicket'])->name('user.e-ticket');
 });
 
 Route::group(['middleware' => ['auth.middleware:admin']], function () {
@@ -124,4 +124,25 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/ticket/edit/{id}', [AdminController::class, 'ticketEdit'])->name('admin.ticket.edit');
     Route::post('/admin/ticket/update/', [AdminController::class, 'ticketUpdate'])->name('admin.ticket.update');
     Route::get('/admin/ticket/destroy/{id}', [AdminController::class, 'ticketDestroy'])->name('admin.ticket.destroy');
+
+    // Order
+    Route::get('/admin/order', [AdminController::class, 'order'])->name('admin.order');
+    Route::get('/admin/order/edit/{id}', [AdminController::class, 'orderEdit'])->name('admin.order.edit');
+    Route::post('/admin/order/update/', [AdminController::class, 'orderUpdate'])->name('admin.order.update');
+    Route::get('/admin/order/destroy/{id}', [AdminController::class, 'orderDestroy'])->name('admin.order.destroy');
+
+    // Payment Information
+    Route::get('/admin/payment-information', [AdminController::class, 'paymentInformation'])->name('admin.payment.information');
+    Route::get('/admin/payment-information/create', [AdminController::class, 'paymentInformationCreate'])->name('admin.payment.information.create');
+    Route::post('/admin/payment-information/store', [AdminController::class, 'paymentInformationStore'])->name('admin.payment.information.store');
+    Route::get('/admin/payment-information/edit/{id}', [AdminController::class, 'paymentInformationEdit'])->name('admin.payment.information.edit');
+    Route::post('/admin/payment-information/update/', [AdminController::class, 'paymentInformationUpdate'])->name('admin.payment.information.update');
+    Route::get('/admin/payment-information/destroy/{id}', [AdminController::class, 'paymentInformationDestroy'])->name('admin.payment.information.destroy');
+
+    // Statistik
+    Route::get('/admin/statistik', [AdminController::class, 'statistik'])->name('admin.statistik');
+    Route::post('/admin/statistik/store', [AdminController::class, 'statistikStore'])->name('admin.statistik.store');
+    Route::get('/admin/statistik/edit/{id}', [AdminController::class, 'statistikEdit'])->name('admin.statistik.edit');
+    Route::post('/admin/statistik/update/', [AdminController::class, 'statistikUpdate'])->name('admin.statistik.update');
+    Route::get('/admin/statistik/destroy/{id}', [AdminController::class, 'statistikDestroy'])->name('admin.statistik.destroy');
 });

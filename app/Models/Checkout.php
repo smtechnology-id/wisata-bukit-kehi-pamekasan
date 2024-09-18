@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon; // Pastikan untuk mengimpor Carbon
 
 class Checkout extends Model
 {
@@ -26,5 +27,9 @@ class Checkout extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function ticket_date($format = 'Y-m-d')
+    {
+        return Carbon::parse($this->attributes['ticket_date'])->format($format);
     }
 }

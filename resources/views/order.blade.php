@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- BreadCrumb Starts -->
-    <section class="breadcrumb-main pb-20 pt-14" style="background-image: url(images/bg/bg1.jpg);">
+    <section class="breadcrumb-main pb-20 pt-14" style="background-image: url({{ asset('assets-landing/images/bg/bg1.jpg') }});">
         <div class="section-shape section-shape1 top-inherit bottom-0" style="background-image: url(images/shape8.png);">
         </div>
         <div class="breadcrumb-outer">
@@ -35,7 +35,7 @@
                         <th>Quantity</th>
                         <th>Total Price</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th>E-Ticket</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,7 +57,7 @@
                         </td>
                         @if($order->status == 'accepted')
                         <td>
-                            <a href="{{ route('user.order.show', $order->id) }}" class="btn btn-primary">View E-Ticket</a>
+                            <a href="{{ route('user.e-ticket', $order->code) }}" class="btn btn-primary">View E-Ticket</a>
                         </td>
                         @else
                         <td>

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aparatur;
-use App\Models\Destination;
-use App\Models\Gallery;
 use App\Models\News;
-use App\Models\Product;
-use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Ticket;
+use App\Models\Gallery;
+use App\Models\Product;
+use App\Models\Aparatur;
+use App\Models\Statistik;
+use App\Models\Destination;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,8 @@ class AuthController extends Controller
         $tickets = Ticket::all()->take(3);
         $aparatur = Aparatur::all();
         $news = News::latest()->take(3)->get();
-        return view('landing', compact('destinations', 'tickets', 'aparatur', 'news'));
+        $products = Product::latest()->take(3)->get();
+        return view('landing', compact('destinations', 'tickets', 'aparatur', 'news', 'products'));
     }
     public function login()
     {
@@ -130,5 +132,13 @@ class AuthController extends Controller
     public function sejarah()
     {
         return view('sejarah');
+    }
+
+    // Statistik
+    public function statistik()
+    {
+        $statistik = Statistik::all();
+        $statistik2 = Statistik::all();
+        return view('statistik', compact('statistik', 'statistik2'));
     }
 }

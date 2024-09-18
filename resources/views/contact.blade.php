@@ -39,7 +39,7 @@
                                             </div>
                                             <div class="info-content">
                                                 <h3>Office Location</h3>
-                                                <p class="m-0">445 Mount Eden Road, Mt Eden Basundhara Chakrapath</p>
+                                                <p class="m-0">Alamat : Jl. Raya Pakong Desa Kertagena Dajah Kec.Kadur Kab.Pamekasan, Desa Kertagenah Dajah, Kecamatan Kadur, Kabupaten Pamekasan, Provinsi Jawa Timur, Indonesia, 69355.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -50,8 +50,8 @@
                                             </div>
                                             <div class="info-content">
                                                 <h3>Phone Number</h3>
-                                                <p class="m-0">977-444-666-888</p>
-                                                <p class="m-0">977-444-222-000</p>
+                                                <p class="m-0">Whatsapp : 085231065084</p>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -62,45 +62,20 @@
                                             </div>
                                             <div class="info-content ps-4">
                                                 <h3>Email Address</h3>
-                                                <p class="m-0">info@realshield.com</p>
-                                                <p class="m-0">help@realshield.com</p>
+                                                <p class="m-0">pemdeskertagenadajah@gmail.com</p>
+                                             
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div id="contact-form1" class="contact-form">
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12">
                                             <div class="map rounded overflow-hiddenb rounded mb-md-4">
                                                 <div style="width: 100%">
-                                                    <iframe height="500" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=+(mangal%20bazar)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                    <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.4236626551956!2d113.60576677590838!3d-7.076781569367326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd9d9b0ac001ced%3A0xc974e6bc0b0b824a!2sWisata%20Bukit%20Kehi!5e0!3m2!1sid!2sid!4v1726654257873!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            
-                                            <div id="contactform-error-msg"></div>
-    
-                                            <form method="post" action="#" name="contactform2" id="contactform2">
-                                                <div class="form-group mb-2">
-                                                    <input type="text" name="first_name" class="form-control" id="fullname" placeholder="First Name">
-                                                </div>
-                                                <div class="form-group mb-2">
-                                                    <input type="text" name="last_name" class="form-control" id="llastname" placeholder="Last Name">
-                                                </div>
-                                                <div class="form-group mb-2">
-                                                    <input type="email" name="email"  class="form-control" id="email" placeholder="Email">
-                                                </div>
-                                                <div class="form-group mb-2">
-                                                    <input type="text" name="phone" class="form-control" id="phnumber" placeholder="Phone">
-                                                </div>
-                                                <div class="textarea mb-2">
-                                                    <textarea name="comments" placeholder="Enter a message"></textarea>
-                                                </div>
-                                                <div class="comment-btn text-center">
-                                                    <input type="submit" class="nir-btn" id="submit2" value="Send Message">
-                                                </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>

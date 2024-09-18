@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Checkout;
-use App\Models\Product;
 use App\Models\Ticket;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
+use App\Models\Checkout;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\PaymentInformation;
+use Illuminate\Support\Facades\Auth;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class UserController extends Controller
 {
@@ -62,7 +64,8 @@ class UserController extends Controller
     public function checkout($id)
     {
         $ticket = Ticket::find($id);
-        return view('checkout', compact('ticket'));
+        $paymentInfo = PaymentInformation::all();
+        return view('checkout', compact('ticket', 'paymentInfo'));
     }
 
     public function checkoutProcess(Request $request)
@@ -76,9 +79,9 @@ class UserController extends Controller
         if (!$ticket) {
             return redirect()->back()->with('error', 'Ticket not found');
         }
-        if($request->payment_proof){
+        if ($request->payment_proof) {
             $payment_proof = $request->file('payment_proof');
-            $payment_proof_name = time().'.'.$payment_proof->getClientOriginalExtension();
+            $payment_proof_name = time() . '.' . $payment_proof->getClientOriginalExtension();
             // Use storage instead of public path
             $payment_proof->storeAs('payment_proof', $payment_proof_name, 'public');
         }
@@ -105,4 +108,17 @@ class UserController extends Controller
         $orders = Checkout::where('user_id', Auth::user()->id)->get();
         return view('order', compact('orders'));
     }
+
+    public function eTicket($code)
+    {
+        $order = Checkout::where('code', $code)->first();
+        // Ganti BarcodeGeneratorPNG dengan QRCodeGenerator
+        $generator = new \Picqer\Barcode\BarcodeGeneratorPNG(); // Pastikan menggunakan generator yang sesuai untuk QR Code
+        $qrcode = base64_encode($generator->getBarcode($code, $generator::TYPE_CODE_128)); // Ubah ke QR Code
+        $order->qrcode = $qrcode; // Simpan QR Code ke dalam order
+        return view('e-ticket', compact('order', 'qrcode')); // Ganti 'barcode' dengan 'qrcode'
+    }
+
+
+   
 }
