@@ -145,4 +145,12 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/statistik/edit/{id}', [AdminController::class, 'statistikEdit'])->name('admin.statistik.edit');
     Route::post('/admin/statistik/update/', [AdminController::class, 'statistikUpdate'])->name('admin.statistik.update');
     Route::get('/admin/statistik/destroy/{id}', [AdminController::class, 'statistikDestroy'])->name('admin.statistik.destroy');
+
+    // Income
+    Route::get('/admin/income', [AdminController::class, 'income'])->name('admin.income');
+    Route::get('/admin/income/create', [AdminController::class, 'incomeCreate'])->name('admin.income.create');
+    Route::post('/admin/income/store', [AdminController::class, 'incomeStore'])->name('admin.income.store');
+    Route::get('/admin/income/edit/{id}', [AdminController::class, 'incomeEdit'])->name('admin.income.edit');
+    Route::post('/admin/income/update/', [AdminController::class, 'incomeUpdate'])->name('admin.income.update');
+    Route::get('/admin/income/destroy/{id}', [AdminController::class, 'incomeDestroy'])->name('admin.income.destroy');
 });

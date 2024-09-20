@@ -119,7 +119,10 @@
                         <a href="{{ route('admin.statistik') }}" class="active"><i
                                 class="material-icons-two-tone">bar_chart</i>Statistik Pengunjung`</a>
                     </li>
-
+                    <li class="@yield('active_income')">
+                        <a href="{{ route('admin.income') }}" class="active"><i
+                                class="material-icons-two-tone">money</i>Income</a>
+                    </li>
                     <li class="sidebar-title">
                         Ticket
                     </li>

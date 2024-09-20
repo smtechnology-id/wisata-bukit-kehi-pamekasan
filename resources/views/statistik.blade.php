@@ -8,11 +8,11 @@
         <div class="breadcrumb-outer">
             <div class="container">
                 <div class="breadcrumb-content text-center">
-                    <h1 class="mb-3">Statistik </h1>
+                    <h1 class="mb-3 text-white">Statistik </h1> <!-- Ubah warna teks -->
                     <nav aria-label="breadcrumb" class="d-block">
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Statistik</li>
+                            <li class="breadcrumb-item"><a href="#" class="text-light">Home</a></li> <!-- Ubah warna teks -->
+                            <li class="breadcrumb-item active" aria-current="page"><span class="text-light">Statistik</span></li> <!-- Ubah warna teks -->
                         </ul>
                     </nav>
                 </div>
@@ -22,63 +22,112 @@
     </section>
     <!-- BreadCrumb Ends -->
 
-    <div class="container">
+    <div class="container py-5">
+        <h3 class="text-primary">Statistik Pengunjung Wisata Bukit Kehi Pamekasan</h3> <!-- Ubah warna teks -->
         <div class="row">
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Statistik Pengunjung</h5>
-                    </div>
-                    <div>
-                        <canvas id="myChart"></canvas>
-                      </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Stacked Bar Chart</h5>
-                    </div>
-                    <div class="card-body">
-                        <div id="myChart2"></div>
+            @foreach ($tahun as $item)
+                <div class="col-lg-6 mb-4"> <!-- Tambahkan margin bawah -->
+                    <div class="card shadow"> <!-- Tambahkan efek bayangan -->
+                        <div class="card-header bg-info text-white"> <!-- Ubah warna latar belakang dan teks -->
+                            <h5 class="card-title">Statistik Pengunjung {{ $item->tahun }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="myChart{{ $item->tahun }}" style="width:100%;max-width:600px"></canvas>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
         </div>
+    </div>
+
+    <div class="container">
+        <h3 class="text-primary">Statistik Penghasilan Wisata Bukit Kehi Pamekasan</h3> <!-- Ubah warna teks -->
+        <div class="row">
+            @foreach ($income_tahun as $item)
+                @php
+                    // Ambil data income berdasarkan tahun
+                    $income = $incomes->where('tahun', $item->tahun);
+                @endphp
+                <div class="col-md-6 mb-4"> <!-- Tambahkan margin bawah -->
+                    <div class="card shadow"> <!-- Tambahkan efek bayangan -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="card-title">Report Penghasilan
+                                        {{ $item->tahun ?? 'Tidak ada data' }}</h5> <!-- Tampilkan tahun yang benar -->
+                                </div>
+                                @foreach ($income as $detail)
+                                    <div class="col-12 mt-3">
+                                        <div class="box d-flex justify-content-between">
+                                            <label for="" class="text-dark">Penghasilan : Rp. <!-- Ubah warna teks -->
+                                                {{ number_format($detail->amount, 0, ',', '.') }}</label>
+                                            <label for="" class="text-dark">Target : Rp. <!-- Ubah warna teks -->
+                                                {{ number_format($detail->target, 0, ',', '.') }}</label>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                role="progressbar" aria-valuenow="{{ $detail->amount }}" aria-valuemin="0"
+                                                aria-valuemax="{{ $detail->target }}" 
+                                                style="width: {{ ($detail->amount / $detail->target) * 100 }}%"> 
+                                                {{ number_format(($detail->amount / $detail->target) * 100, 2) }}%
+                                            </div> <!-- Format persentase -->
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        
     </div>
 @endsection
 
 @section('script')
+    <script>
+        var barColors = ["#FF6384", "#36A2EB", "#FFCE56"]; // Ubah warna grafik
 
+        @foreach ($tahun as $item)
+            var xValues{{ $item->tahun }} = [
+                @php
+                    $statistikTahun = $statistik->where('tahun', $item->tahun);
+                @endphp
+                @foreach ($statistikTahun as $statistikItem)
+                    "Laki - laki - {{ date('F', mktime(0, 0, 0, $statistikItem->bulan, 1)) }}",
+                    "Perempuan - {{ date('F', mktime(0, 0, 0, $statistikItem->bulan, 1)) }}",
+                    "Tidak diketahui - {{ date('F', mktime(0, 0, 0, $statistikItem->bulan, 1)) }}",
+                @endforeach
+            ];
 
-<script>
-  const ctx = document.getElementById('myChart');
+            var yValues{{ $item->tahun }} = [
+                @foreach ($statistikTahun as $statistikItem)
+                    {{ $statistikItem->jumlah_lakilaki }},
+                    {{ $statistikItem->jumlah_perempuan }},
+                    {{ $statistikItem->tidak_diketahui }},
+                @endforeach
+            ];
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: [
-        @foreach ($statistik as $item)
-            {{ $item->bulan }}
+            new Chart("myChart{{ $item->tahun }}", {
+                type: "bar",
+                data: {
+                    labels: xValues{{ $item->tahun }},
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues{{ $item->tahun }}
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: "Statistik Pengunjung {{ $item->tahun }}",
+                        fontColor: "#333" // Ubah warna teks judul
+                    }
+                }
+            });
         @endforeach
-      ],
-      datasets: [{
-        label: '# of Votes',
-        data: [
-            @foreach ($statistik2 as $item2)
-                {{ $item2->pengunjung_perempuan }},
-            @endforeach
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
+    </script>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Income;
 use App\Models\Ticket;
 use App\Models\Gallery;
 use App\Models\Product;
@@ -645,5 +646,55 @@ class AdminController extends Controller
         $statistik = Statistik::find($id);
         $statistik->delete();
         return redirect()->route('admin.statistik')->with('success', 'Statistik deleted successfully');
+    }
+
+
+    // Income
+    public function income()
+    {
+        $incomes = Income::latest()->get();
+        return view('admin.income', compact('incomes'));
+    }
+    public function incomeStore(Request $request)
+    {
+        $request->validate([
+            'bulan' => 'required|numeric',
+            'tahun' => 'required|numeric',
+            'target' => 'required|numeric',
+            'amount' => 'required|numeric',
+        ]);
+        if (Income::where('bulan', $request->bulan)->where('tahun', $request->tahun)->exists()) {
+            return redirect()->route('admin.income')->with('error', 'Income already exists');
+        }
+        $income = new Income();
+        $income->bulan = $request->bulan;
+        $income->tahun = $request->tahun;
+        $income->target = $request->target;
+        $income->amount = $request->amount;
+        $income->save();
+        return redirect()->route('admin.income')->with('success', 'Income created successfully');
+    }
+    public function incomeUpdate(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'bulan' => 'required|numeric',
+            'tahun' => 'required|numeric',
+            'target' => 'required|numeric',
+            'amount' => 'required|numeric',
+        ]);
+        $income = Income::find($request->id);
+        $income->bulan = $request->bulan;
+        $income->tahun = $request->tahun;
+        $income->target = $request->target;
+        $income->amount = $request->amount;
+        $income->save();
+        return redirect()->route('admin.income')->with('success', 'Income updated successfully');
+    }
+    public function incomeDestroy($id)
+    {
+        $income = Income::find($id);
+        $income->delete();
+        return redirect()->route('admin.income')->with('success', 'Income deleted successfully');
     }
 }

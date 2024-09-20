@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use App\Models\User;
+use App\Models\Income;
 use App\Models\Ticket;
 use App\Models\Gallery;
 use App\Models\Product;
@@ -138,7 +139,11 @@ class AuthController extends Controller
     public function statistik()
     {
         $statistik = Statistik::all();
-        $statistik2 = Statistik::all();
-        return view('statistik', compact('statistik', 'statistik2'));
+        $tahun = Statistik::select('tahun')->distinct()->get();
+
+        // income
+        $incomes = Income::all();
+        $income_tahun = Income::select('tahun')->distinct()->get();
+        return view('statistik', compact('statistik', 'tahun', 'incomes', 'income_tahun'));
     }
 }

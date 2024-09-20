@@ -38,13 +38,11 @@
             <div class="container d-flex align-items-center justify-content-between">
                 <div class="links">
                     <ul>
-                        <li><a href="#" class="white"><i class="icon-calendar white"></i> Thursday, Mar 26,
-                                2021</a>
+                        <li><a href="#" class="white"><i class="icon-calendar white"></i> Sabtu, 16 Januari 2024</a>
                         </li>
-                        <li><a href="#" class="white"><i class="icon-location-pin white"></i> Hollywood,
-                                America</a>
+                        <li><a href="#" class="white"><i class="icon-location-pin white"></i> Pamekasan, Jawa Timur, Indonesia</a>
                         </li>
-                        <li><a href="#" class="white"><i class="icon-clock white"></i> Mon-Fri: 10 AM – 5 PM</a>
+                        <li><a href="#" class="white"><i class="icon-clock white"></i> 08.00 - 16.00 WIB</a>
                         </li>
                     </ul>
                 </div>

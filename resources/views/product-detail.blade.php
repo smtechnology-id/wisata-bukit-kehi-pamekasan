@@ -30,7 +30,6 @@
                         <h2 class="mb-1">{{ $product->name }}</h2>
                         <div class="rating-main">
                             <p class="mb-0 me-2 d-inline-block"><i class="icon-location-pin"></i> Pamekasan, Jawa Timur</p>
-                        
                         </div>
                     </div>
                 </div>
