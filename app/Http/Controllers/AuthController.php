@@ -146,4 +146,18 @@ class AuthController extends Controller
         $income_tahun = Income::select('tahun')->distinct()->get();
         return view('statistik', compact('statistik', 'tahun', 'incomes', 'income_tahun'));
     }
+    public function statistikTahunPost(Request $request)
+    {
+        $tahun = $request->tahun;
+        return redirect()->route('landing.statistik.tahun', $tahun);
+    }
+
+    public function statistikTahun($tahun)
+    {
+        $statistik = Statistik::where('tahun', $tahun)->get();
+        $incomes = Income::where('tahun', $tahun)->get();
+        $tahun = $tahun;
+        $tahunList = Statistik::select('tahun')->distinct()->get();
+        return view('statistik-tahun', compact('statistik', 'incomes', 'tahun', 'tahunList'));
+    }
 }

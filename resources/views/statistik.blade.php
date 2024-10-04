@@ -11,8 +11,10 @@
                     <h1 class="mb-3 text-white">Statistik </h1> <!-- Ubah warna teks -->
                     <nav aria-label="breadcrumb" class="d-block">
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#" class="text-light">Home</a></li> <!-- Ubah warna teks -->
-                            <li class="breadcrumb-item active" aria-current="page"><span class="text-light">Statistik</span></li> <!-- Ubah warna teks -->
+                            <li class="breadcrumb-item"><a href="#" class="text-light">Home</a></li>
+                            <!-- Ubah warna teks -->
+                            <li class="breadcrumb-item active" aria-current="page"><span class="text-light">Statistik</span>
+                            </li> <!-- Ubah warna teks -->
                         </ul>
                     </nav>
                 </div>
@@ -21,7 +23,21 @@
         <div class="dot-overlay"></div>
     </section>
     <!-- BreadCrumb Ends -->
-
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 mb-4"> <!-- Tambahkan margin bawah -->
+                <div class="card shadow"> <!-- Tambahkan efek bayangan -->
+                    <div class="card-body p-4">
+                        <p class="font-weight-bold">Pilih Tahun</p> <!-- Ubah gaya teks -->
+                        @foreach ($tahun as $item)
+                            <a href="{{ route('landing.statistik.tahun', $item->tahun) }}"
+                                class="btn btn-primary">{{ $item->tahun }}</a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container py-5">
         <h3 class="text-primary">Statistik Pengunjung Wisata Bukit Kehi Pamekasan</h3> <!-- Ubah warna teks -->
         <div class="row">
@@ -40,7 +56,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container py-5">
         <h3 class="text-primary">Statistik Penghasilan Wisata Bukit Kehi Pamekasan</h3> <!-- Ubah warna teks -->
         <div class="row">
             @foreach ($income_tahun as $item)
@@ -59,7 +75,8 @@
                                 @foreach ($income as $detail)
                                     <div class="col-12 mt-3">
                                         <div class="box d-flex justify-content-between">
-                                            <label for="" class="text-dark">Penghasilan : Rp. <!-- Ubah warna teks -->
+                                            <label for="" class="text-dark">Penghasilan : Rp.
+                                                <!-- Ubah warna teks -->
                                                 {{ number_format($detail->amount, 0, ',', '.') }}</label>
                                             <label for="" class="text-dark">Target : Rp. <!-- Ubah warna teks -->
                                                 {{ number_format($detail->target, 0, ',', '.') }}</label>
@@ -67,8 +84,8 @@
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-striped progress-bar-animated"
                                                 role="progressbar" aria-valuenow="{{ $detail->amount }}" aria-valuemin="0"
-                                                aria-valuemax="{{ $detail->target }}" 
-                                                style="width: {{ ($detail->amount / $detail->target) * 100 }}%"> 
+                                                aria-valuemax="{{ $detail->target }}"
+                                                style="width: {{ ($detail->amount / $detail->target) * 100 }}%">
                                                 {{ number_format(($detail->amount / $detail->target) * 100, 2) }}%
                                             </div> <!-- Format persentase -->
                                         </div>
@@ -80,7 +97,7 @@
                 </div>
             @endforeach
         </div>
-        
+
     </div>
 @endsection
 

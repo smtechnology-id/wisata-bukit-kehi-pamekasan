@@ -27,13 +27,17 @@ Route::post('/register', [AuthController::class, 'registerPost'])->name('registe
 // Navbar
 Route::get('/', [AuthController::class, 'index'])->name('index');
 Route::get('/about', [AuthController::class, 'about'])->name('landing.about');
-Route::get('/statistik', [AuthController::class, 'statistik'])->name('landing.statistik');
 Route::get('/destination', [AuthController::class, 'destination'])->name('landing.destination');
 Route::get('/gallery', [AuthController::class, 'gallery'])->name('landing.gallery');
 Route::get('/product', [AuthController::class, 'product'])->name('landing.product');
 Route::get('/news', [AuthController::class, 'news'])->name('landing.news');
 Route::get('/contact', [AuthController::class, 'contact'])->name('landing.contact');
 Route::get('/sejarah', [AuthController::class, 'sejarah'])->name('landing.sejarah');
+
+// Statistik
+Route::get('/statistik', [AuthController::class, 'statistik'])->name('landing.statistik');
+Route::post('/statistik/tahunPost', [AuthController::class, 'statistikTahunPost'])->name('landing.statistik.tahunPost');
+Route::get('/statistik/tahun/{tahun}', [AuthController::class, 'statistikTahun'])->name('landing.statistik.tahun');
 
 // Destination Detail
 Route::get('/destination/{slug}', [AuthController::class, 'destinationDetail'])->name('destination.detail');
