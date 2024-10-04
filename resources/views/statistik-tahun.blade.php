@@ -30,10 +30,14 @@
                 <div class="card shadow"> <!-- Tambahkan efek bayangan -->
                     <div class="card-body p-4">
                         <p class="font-weight-bold">Pilih Tahun</p> <!-- Ubah gaya teks -->
-                        @foreach ($tahunList as $tahunList)
-                            <a href="{{ route('landing.statistik.tahun', $tahunList->tahun) }}"
-                                class="btn btn-primary">Tahun {{ $tahunList->tahun }}</a>
-                        @endforeach
+                        <select class="form-control" onchange="location = this.value;"> <!-- Ganti tombol dengan select -->
+                            <option value="">Pilih Tahun</option>
+                            @foreach ($tahunList as $tahunList)
+                                <option value="{{ route('landing.statistik.tahun', $tahunList->tahun) }}"
+                                    {{ $tahunList->tahun == $tahun ? 'selected' : '' }}>{{ $tahunList->tahun }}</option>
+                            @endforeach
+                        </select>
+                       
                     </div>
                 </div>
             </div>
